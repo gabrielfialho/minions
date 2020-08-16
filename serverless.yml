@@ -18,7 +18,7 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: minions
+    tableName: encomendas
 
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
   # In this case Lambda functions are granted with permissions to access DynamoDB.
@@ -32,7 +32,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:us-east-2:639561993018:table/teste"
+      Resource: "arn:aws:dynamodb:us-east-2:639561993018:table/encomendas"
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
@@ -45,7 +45,7 @@ functions:
     handler: create.main
     events:
       - http:
-          path: minions
+          path: encomendas
           method: post
           cors: true
           authorizer: aws_iam
@@ -56,7 +56,7 @@ functions:
     handler: get.main
     events:
       - http:
-          path: minions/{id}
+          path: encomendas/{id}
           method: get
           cors: true
           authorizer: aws_iam
@@ -67,7 +67,7 @@ functions:
     handler: list.main
     events:
       - http:
-          path: minions
+          path: encomendas
           method: get
           cors: true
           authorizer: aws_iam
@@ -78,7 +78,7 @@ functions:
     handler: update.main
     events:
       - http:
-          path: minions/{id}
+          path: encomendas/{id}
           method: put
           cors: true
           authorizer: aws_iam
@@ -89,10 +89,11 @@ functions:
     handler: delete.main
     events:
       - http:
-          path: minions/{id}
+          path: encomendas/{id}
           method: delete
           cors: true
           authorizer: aws_iam
+
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors

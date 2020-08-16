@@ -2,6 +2,13 @@ import * as uuid from "uuid";
 import handler from "./libs/handler-lib";
 import dynamoDb from "./libs/dynamodb-lib";
 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
+
+today = dd + '/' + mm + '/' + yyyy;
+
 export const main = handler(async (event, context) => {
     const data = JSON.parse(event.body);
     const params = {
@@ -15,11 +22,13 @@ export const main = handler(async (event, context) => {
         // - 'attachment': parsed from request body
         // - 'createdAt': current Unix timestamp
         Item: {
-            userid: event.requestContext.identity.cognitoIdentityId,
-            noteid: uuid.v1(),
-            content: data.content,
-            attachment: data.attachment,
-            createdAt: Date.now()
+            clientId: event.requestContext.identity.cognitoIdentityId,
+            vendaId: uuid.v1(),
+            criadoem: today,
+            cliente: data.cliente,
+            produto: data.produto,
+            quantidade: data.quantidade,
+            endereco: data.endereco
         }
     };
 
